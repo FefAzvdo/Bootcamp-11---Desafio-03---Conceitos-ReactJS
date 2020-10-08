@@ -1,29 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import api from './services/api'
 
 import "./styles.css";
 
 function App() {
+  const [repositories, setRepositories] = useState([])
+
+  useEffect(() => {
+    api.get('/repositories').then(repository => setRepositories(repository.data))
+  }, [])
+
+
   async function handleAddRepository() {
-    // TODO
+    const response = await api.post('/repositories', {
+      title: "Repositório deste projeto",
+      url: "https://github.com/FefAzvdo/Bootcamp-11---Desafio-03---Conceitos-ReactJS",
+      techs: ["ReactJS"]
+    })
+
+    const newRepository = response.data
+
+    setRepositories([...repositories, newRepository])
   }
 
   async function handleRemoveRepository(id) {
-    // TODO
+    api.delete(`/repositories/${id}`)
+
+    const newList = repositories.filter(repository => repository.id !== id)
+
+    setRepositories(newList)
   }
 
   return (
     <div>
-      <ul data-testid="repository-list">
-        <li>
-          Repositório 1
-
-          <button onClick={() => handleRemoveRepository(1)}>
-            Remover
+      <ul data-testid="repository-list" className="repository-container">
+        {repositories !== [] && repositories.map(repository => {
+          return (
+            <li key={repository.id} className="repository-item">
+              <p>{repository.title}</p>
+              <a href={repository.url} target="_blank">Ver Repositório</a>
+              <ul>
+                Techs:
+                {repository.techs.map(tech => {
+                return (
+                  <li key={tech}>{tech}</li>
+                )
+              })}
+              </ul>
+              <strong>Likes: {repository.likes} ❤</strong>
+              <button onClick={() => handleRemoveRepository(repository.id)}>
+                Remover
           </button>
-        </li>
+            </li>
+          )
+        })
+        }
       </ul>
+      <div className="add-button-container">
+        <button onClick={handleAddRepository}>Adicionar</button>
+      </div>
 
-      <button onClick={handleAddRepository}>Adicionar</button>
     </div>
   );
 }

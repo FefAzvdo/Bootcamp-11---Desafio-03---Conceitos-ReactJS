@@ -8,7 +8,7 @@ body {
   font-size: 14px;
 }
 
-div {
+/* div {
   width: 100%;
   margin: 20px;
 }
@@ -20,7 +20,7 @@ div li {
 
 div li + li {
   margin-top: 15px;
-}
+} */
 
 button {
   background: #7159c1;
@@ -36,4 +36,55 @@ button {
 div li button {
   margin: 0 15px;
   background: #ca4949;
+}
+
+.repository-container {
+  display: flex;
+  place-content: center;
+  flex-wrap: wrap;
+}
+
+.repository-item {
+  border: 2px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px;
+  margin: 10px;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.repository-item p {
+  font-weight: bolder;
+  font-size: large;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.repository-item li {
+  list-style: none;
+  margin: 5px;
+}
+
+.repository-item a {
+  text-decoration: underline;
+  color: black;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.repository-item strong {
+  margin-bottom: 10px;
+}
+
+.add-button-container {
+  width: 100%;
+  display: flex;
+  place-content: center;
+}
+
+.add-button-container button {
+  width: 35%;
 }
